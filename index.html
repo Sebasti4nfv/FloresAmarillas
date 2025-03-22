@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Una Flor Amarilla Para Ti</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <button class="initial-button">Abre mi regalo ❤️</button>
+        
+        <div class="card">
+            <h1>Para mi preciosa niña</h1>
+            
+            <div class="flower-container">
+                <div class="flower">
+                    <div class="stem"></div>
+                    <div class="leaf"></div>
+                    <div class="petal" style="--rotation: 0deg;"></div>
+                    <div class="petal" style="--rotation: 45deg;"></div>
+                    <div class="petal" style="--rotation: 90deg;"></div>
+                    <div class="petal" style="--rotation: 135deg;"></div>
+                    <div class="petal" style="--rotation: 180deg;"></div>
+                    <div class="petal" style="--rotation: 225deg;"></div>
+                    <div class="petal" style="--rotation: 270deg;"></div>
+                    <div class="petal" style="--rotation: 315deg;"></div>
+                    <div class="center"></div>
+                </div>
+            </div>
+            
+            <div class="message">
+                <p>Quería regalarte esta flor amarilla que, como nuestro amor, nunca se marchitará.</p>
+                <p>No es la flor con la cual te quedarás, pero solo pido que esperes solo dos días (Domingo jajaja), que te daré un ramo</p>
+                <p>Espero que siempre sepas que tan importante eres para mi y para ti misma. y lo tanto que me gustas</p>
+                <p>Te quiero hoy, mañana y siempre.</p>
+            </div>
+            
+            <div class="signature">Con todo mi amor, Fonsi</div>
+
+            <button class="music-button">🎵 Activar música</button>
+            <audio id="background-music" loop>
+                <source src="FloresAmarillas.mp3" type="audio/mpeg">
+                Tu navegador no soporta el elemento de audio.
+                </audio>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const button = document.querySelector('.initial-button');
+            const card = document.querySelector('.card');
+            const petals = document.querySelectorAll('.petal');
+            const center = document.querySelector('.center');
+            const stem = document.querySelector('.stem');
+            const leaf = document.querySelector('.leaf');
+            const heading = document.querySelector('h1');
+            const message = document.querySelector('.message');
+            const signature = document.querySelector('.signature');
+            const musicButton = document.querySelector('.music-button');
+            const music = document.getElementById('background-music');
+            let isPlaying = false;
+            music.volume = 0.2;
+            
+            button.addEventListener('click', function() {
+                button.style.transform = 'scale(0)';
+                button.style.opacity = '0';
+                
+                setTimeout(function() {
+                    card.classList.add('visible');
+                    
+                    setTimeout(function() {
+                        heading.classList.add('visible');
+                        stem.classList.add('visible');
+                        
+                        setTimeout(function() {
+                            petals.forEach((petal, index) => {
+                                setTimeout(function() {
+                                    petal.classList.add('visible');
+                                    createSparkle(petal);
+                                }, index * 200);
+                            });
+                            
+                            setTimeout(function() {
+                                center.classList.add('visible');
+                                leaf.classList.add('visible');
+                                
+                                setTimeout(function() {
+                                    message.classList.add('visible');
+                                    signature.classList.add('visible');
+                                    startHearts();
+                                }, 1000);
+                            }, 1800);
+                        }, 500);
+                    }, 500);
+                }, 300);
+            });
+            musicButton.addEventListener('click', function() {
+                if (!isPlaying) {
+                    music.play().catch(error => console.log('Error al reproducir:', error));
+                    musicButton.textContent = '🔇 Detener música';
+                } else {
+                    music.pause();
+                    musicButton.textContent = '🎵 Activar música';
+                }
+                isPlaying = !isPlaying;
+            });
+            // Función para crear destellos
+            function createSparkle(element) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = Math.random() * 70 + '%';
+                sparkle.style.top = Math.random() * 70 + '%';
+                sparkle.style.animation = `sparkle ${Math.random() * 1 + 0.5}s linear`;
+                
+                element.appendChild(sparkle);
+                
+                setTimeout(() => {
+                    sparkle.remove();
+                }, 1500);
+            }
+            
+            function createHeart() {
+                const heart = document.createElement('div');
+                heart.className = 'hearts';
+                heart.innerHTML = '❤';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDuration = Math.random() * 3 + 4 + 's';
+                card.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 7000);
+            }
+            
+            function startHearts() {
+                setInterval(createHeart, 1000);
+            }
+        });
+
+    </script>
+</body>
+</html>

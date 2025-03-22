@@ -1,0 +1,354 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f9f3f3;
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 600px;
+}
+
+
+.initial-button {
+    padding: 15px 30px;
+    font-size: 18px;
+    background-color: #ff85a2;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(255, 133, 162, 0.5);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    z-index: 10;
+}
+
+.initial-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 20px rgba(255, 133, 162, 0.7);
+}
+
+.initial-button:active {
+    transform: translateY(1px);
+}
+
+.initial-button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%);
+    transform-origin: 50% 50%;
+}
+
+.initial-button:focus:not(:active)::after {
+    animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0, 0);
+        opacity: 0.5;
+    }
+    20% {
+        transform: scale(25, 25);
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(40, 40);
+    }
+}
+
+.card {
+    position: relative;
+    width: 90%;
+    max-width: 500px;
+    background-color: white;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    overflow: hidden;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 1s ease;
+    display: none;
+}
+
+.card.visible {
+    opacity: 1;
+    transform: scale(1);
+    display: block;
+}
+
+.message {
+    margin-top: 30px;
+    padding: 20px;
+    font-size: 18px;
+    line-height: 1.6;
+    color: #333;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 1s ease 2s;
+}
+
+.message.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.flower-container {
+    margin: 30px auto;
+    position: relative;
+    width: 200px;
+    height: 250px;
+    perspective: 1000px;
+}
+
+.flower {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    transform-style: preserve-3d;
+}
+
+.center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background-color: #8B4513;
+    border-radius: 50%;
+    z-index: 2;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: all 0.5s ease 1s;
+}
+
+.center.visible {
+    width: 50px;
+    height: 50px;
+    opacity: 1;
+}
+
+.petal {
+    position: absolute;
+    width: 0;
+    height: 0;
+    background-color: #FFD700;
+    border-radius: 50% 50% 0 50%;
+    top: 50%;
+    left: 50%;
+    transform-origin: center;
+    opacity: 0;
+    transition: all 0.5s ease;
+}
+
+.petal.visible {
+    width: 70px;
+    height: 70px;
+    opacity: 1;
+    animation: sway 5s infinite ease-in-out;
+}
+
+.petal:nth-child(1) {
+    transform: translate(-50%, -50%) rotate(0deg);
+    transition-delay: 0.2s;
+}
+
+.petal:nth-child(2) {
+    transform: translate(-50%, -50%) rotate(45deg);
+    transition-delay: 0.4s;
+}
+
+.petal:nth-child(3) {
+    transform: translate(-50%, -50%) rotate(90deg);
+    transition-delay: 0.6s;
+}
+
+.petal:nth-child(4) {
+    transform: translate(-50%, -50%) rotate(135deg);
+    transition-delay: 0.8s;
+}
+
+.petal:nth-child(5) {
+    transform: translate(-50%, -50%) rotate(180deg);
+    transition-delay: 1.0s;
+}
+
+.petal:nth-child(6) {
+    transform: translate(-50%, -50%) rotate(225deg);
+    transition-delay: 1.2s;
+}
+
+.petal:nth-child(7) {
+    transform: translate(-50%, -50%) rotate(270deg);
+    transition-delay: 1.4s;
+}
+
+.petal:nth-child(8) {
+    transform: translate(-50%, -50%) rotate(315deg);
+    transition-delay: 1.6s;
+}
+
+.stem {
+    position: absolute;
+    width: 10px;
+    height: 0;
+    background-color: #228B22;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 0;
+    transition: height 1s ease 0.5s;
+}
+
+.stem.visible {
+    height: 120px;
+}
+
+.leaf {
+    position: absolute;
+    width: 0;
+    height: 0;
+    background-color: #32CD32;
+    bottom: 40px;
+    left: 50%;
+    border-radius: 50%;
+    transform: translateX(10px) rotate(30deg);
+    transition: all 0.5s ease 1.5s;
+    opacity: 0;
+}
+
+.leaf.visible {
+    width: 40px;
+    height: 20px;
+    opacity: 1;
+    animation: leafSway 4s infinite ease-in-out 2s;
+}
+
+@keyframes sway {
+    0%, 100% {
+        transform: translate(-50%, -50%) rotate(var(--rotation)) scale(1);
+    }
+    50% {
+        transform: translate(-50%, -50%) rotate(var(--rotation)) scale(1.1);
+    }
+}
+
+@keyframes leafSway {
+    0%, 100% {
+        transform: translateX(10px) rotate(30deg);
+    }
+    50% {
+        transform: translateX(15px) rotate(40deg);
+    }
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 1s ease 0.5s;
+}
+
+h1.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.signature {
+    margin-top: 40px;
+    font-style: italic;
+    color: #666;
+    opacity: 0;
+    transition: all 1s ease 2.5s;
+}
+
+.signature.visible {
+    opacity: 1;
+}
+
+.hearts {
+    position: absolute;
+    font-size: 24px;
+    color: #FF69B4;
+    opacity: 0;
+    animation: float 5s linear infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100px) rotate(45deg);
+        opacity: 0;
+    }
+}
+
+.sparkle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: radial-gradient(circle, #fff 0%, rgba(255,255,255,0) 70%);
+    border-radius: 50%;
+    opacity: 0;
+}
+
+@keyframes sparkle {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0);
+    }
+}
+.music-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #ff85a2;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.music-button:hover {
+    transform: scale(1.1);
+}
